@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import 'antd/dist/reset.css';
+import { Layout } from "antd";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+
+import Students from "./students/students";
+import AddStudent from "./students/addStudent";
+import EditStudent from "./students/editStudent";
+import Student from "./students/student";
+const { Header, Content } = Layout;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Router>
+      <Layout className="layout-wrapper">
+        <Header
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Link className="ant-btn" to="/students/add">
+            Add Student
+          </Link>
+        </Header>
+        <Content className="content-wrapper" style={{ padding: "20px 50px" }}>
+          <Routes>
+            <Route exact path="/" element={<Students/>} />
+            <Route exact path="/students/add" element={<AddStudent/>} />
+            <Route exact path="/students/:id" element={<Student/>} />
+            <Route exact path="/students/edit/:id" element={<EditStudent/>} />
+          </Routes>
+        </Content>
+      </Layout>
+    </Router>
   );
 }
 
